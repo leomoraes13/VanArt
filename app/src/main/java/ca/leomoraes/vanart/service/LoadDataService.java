@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.List;
 
 import ca.leomoraes.vanart.dao.AppDatabase;
+import ca.leomoraes.vanart.data.Cache;
 import ca.leomoraes.vanart.model.ArtWorkResponse;
 import ca.leomoraes.vanart.model.ArtistResponse;
 import ca.leomoraes.vanart.ui.SplashActivity;
@@ -28,6 +29,7 @@ public class LoadDataService extends IntentService {
 
         intent.setAction(SplashActivity.FILTER_ACTION_KEY);
 
+        Cache.clear();
         RetrofitService
             .getInstance(LoadDataService.this)
             .getArtists(
@@ -54,6 +56,7 @@ public class LoadDataService extends IntentService {
                                                         AppDatabase.getAppDatabase(LoadDataService.this).artWorkDao().deleteAll();
                                                         for (ArtWorkResponse artWorkResponse:response.body()) {
                                                             AppDatabase.getAppDatabase(LoadDataService.this).artWorkDao().insertAll( artWorkResponse.getArtWork() );
+                                                            Cache.add( artWorkResponse.getArtWork().getNeighbourhood() );
                                                         }
 
                                                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent.putExtra("broadcastMessage", true));

@@ -71,6 +71,10 @@ public class ArtWork {
         return registryID;
     }
 
+    public String getRegistryIdFmt() {
+        return ""+registryID;
+    }
+
     public void setRegistryID(Integer registryID) {
         this.registryID = registryID;
     }
@@ -132,7 +136,7 @@ public class ArtWork {
     }
 
     public String getNeighbourhood() {
-        return neighbourhood;
+        return neighbourhood==null?"N/A":neighbourhood;
     }
 
     public void setNeighbourhood(String neighbourhood) {

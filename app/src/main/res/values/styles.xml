@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="cardSeparador">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginTop">@dimen/default_margin</item>
+        <item name="android:background">@color/divider</item>
+    </style>
 </resources>

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    dataBinding.enabled true
     defaultConfig {
         applicationId "ca.leomoraes.vanart"
         minSdkVersion 19
@@ -53,4 +54,7 @@ dependencies {
     // Image cache
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    // Adapter
+    implementation 'com.github.nitrico.lastadapter:lastadapter:2.3.0'
 }

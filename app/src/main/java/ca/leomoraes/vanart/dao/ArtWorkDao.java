@@ -1,5 +1,6 @@
 package ca.leomoraes.vanart.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -11,11 +12,12 @@ import ca.leomoraes.vanart.model.ArtWork;
 @Dao
 public interface ArtWorkDao {
 
-    @Query("SELECT * FROM artWork")
-    List<ArtWork> getAll();
+
+    @Query("SELECT * FROM artWork ORDER BY titleOfWork ASC")
+    LiveData<List<ArtWork>> getAll();
 
     @Query("SELECT * FROM artWork where registryID = :id ")
-    ArtWork findById(Integer id);
+    LiveData<ArtWork> findById(Integer id);
 
     @Query("SELECT COUNT(*) from artWork")
     int countUsers();

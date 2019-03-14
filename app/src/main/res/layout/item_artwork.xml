@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="item" type="ca.leomoraes.vanart.model.ArtWork"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_margin"
+        android:onClick="openArtWork">
+
+        <TextView
+            android:id="@+id/tv_artwork_id"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@{item.registryIdFmt}"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_artwork_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@{item.titleOfWork}"
+            android:paddingStart="@dimen/default_margin"
+            android:paddingEnd="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Piece of ArtWork."/>
+
+        <TextView
+            android:id="@+id/tv_artwork_neighbourhood"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{item.neighbourhood}"
+            android:textSize="16sp"
+            android:padding="@dimen/default_margin"
+            app:layout_constraintTop_toBottomOf="@id/tv_artwork_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Piece of ArtWork." />
+
+        <View
+            android:id="@+id/card_separador_rentabilidade"
+            style="@style/cardSeparador"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_artwork_neighbourhood"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
