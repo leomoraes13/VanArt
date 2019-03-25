@@ -14,18 +14,18 @@ import com.github.nitrico.lastadapter.LastAdapter;
 import butterknife.BindView;
 import ca.leomoraes.vanart.BR;
 import ca.leomoraes.vanart.R;
-import ca.leomoraes.vanart.model.ArtWork;
-import ca.leomoraes.vanart.viewModel.ArtWorkViewModel;
+import ca.leomoraes.vanart.model.Artist;
+import ca.leomoraes.vanart.viewModel.ArtistViewModel;
 
-public class HomeActivity extends BaseActivity {
+public class ArtistListActivity extends BaseActivity {
 
-    @BindView(R.id.home_recycler)
+    @BindView(R.id.artist_list_recycler)
     RecyclerView mRecycler;
 
-    @BindView(R.id.home_progress)
+    @BindView(R.id.artist_list_progress)
     ProgressBar progressBar;
 
-    private ArtWorkViewModel viewModel;
+    private ArtistViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     int getLayoutResId() {
-        return R.layout.activity_home;
+        return R.layout.activity_artist_list;
     }
 
     @Override
@@ -51,22 +51,22 @@ public class HomeActivity extends BaseActivity {
 
     private void setupViewModel() {
         progressBar.setVisibility(View.VISIBLE);
-        viewModel = ViewModelProviders.of(this).get(ArtWorkViewModel.class);
-        viewModel.getAll().observe(this, artworks -> {
+        viewModel = ViewModelProviders.of(this).get(ArtistViewModel.class);
+        viewModel.getAll().observe(this, artists -> {
 
-            new LastAdapter(artworks, BR.item)
-                    .map(ArtWork.class, R.layout.item_artwork)
+            new LastAdapter(artists, BR.item)
+                    .map(Artist.class, R.layout.item_artist)
                     .into(mRecycler);
 
             progressBar.setVisibility(View.GONE);
         });
     }
 
-    public void openArtWork(View view) {
-        TextView text = view.findViewById(R.id.tv_artwork_id);
+    public void openArtist(View view) {
+        TextView text = view.findViewById(R.id.tv_artist_id);
 
-        Intent intent = new Intent(this, ArtWorkActivity.class);
-        intent.putExtra(ArtWorkActivity.EXTRA_ID, Integer.parseInt(text.getText().toString()));
+        Intent intent = new Intent(this, ArtistDetailActivity.class);
+        intent.putExtra(ArtistDetailActivity.EXTRA_ID, Integer.parseInt(text.getText().toString()));
         startActivity( intent );
     }
 }

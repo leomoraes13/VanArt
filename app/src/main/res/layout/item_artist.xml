@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="item" type="ca.leomoraes.vanart.model.ArtWork"/>
+        <variable name="item" type="ca.leomoraes.vanart.model.Artist"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/default_margin"
-        android:onClick="openArtWork">
+        android:onClick="openArtist">
 
         <TextView
-            android:id="@+id/tv_artwork_id"
+            android:id="@+id/tv_artist_id"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@{item.registryIdFmt}"
+            android:text="@{item.artistiIdFmt}"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,12 +25,12 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/tv_artwork_title"
+            android:id="@+id/tv_artist_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@{item.titleOfWork}"
+            android:text="@{item.fullName}"
             android:paddingStart="@dimen/default_margin"
             android:paddingEnd="@dimen/default_margin"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,15 +39,15 @@
             tools:text="Piece of ArtWork."/>
 
         <TextView
-            android:id="@+id/tv_artwork_neighbourhood"
+            android:id="@+id/tv_artist_country"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{item.neighbourhood}"
+            android:text="@{item.country}"
             android:textSize="16sp"
             android:paddingStart="@dimen/default_margin"
             android:paddingEnd="@dimen/default_margin"
             android:paddingBottom="@dimen/default_margin"
-            app:layout_constraintTop_toBottomOf="@id/tv_artwork_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_artist_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,9 +58,8 @@
             style="@style/cardSeparador"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_artwork_neighbourhood"
+            app:layout_constraintTop_toBottomOf="@id/tv_artist_country"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
 
     </android.support.constraint.ConstraintLayout>
 

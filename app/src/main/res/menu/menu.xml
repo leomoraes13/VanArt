@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_artworks"
+        android:orderInCategory="100"
+        android:title="@string/menu_artworks"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_artists"
+        android:orderInCategory="200"
+        android:title="@string/menu_artists"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_favorites"
+        android:orderInCategory="300"
+        android:title="@string/menu_favorites"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,6 +1,7 @@
 package ca.leomoraes.vanart.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -66,6 +67,15 @@ public class ArtWork {
     @SerializedName("Artists")
     private String artists;
 
+    public ArtWork() {
+    }
+
+    @Ignore
+    public ArtWork(Integer registryID, String titleOfWork, String neighbourhood) {
+        this.registryID = registryID;
+        this.titleOfWork = titleOfWork;
+        this.neighbourhood = neighbourhood;
+    }
 
     public Integer getRegistryID() {
         return registryID;
@@ -104,7 +114,7 @@ public class ArtWork {
     }
 
     public String getDescriptionOfwork() {
-        return descriptionOfwork;
+        return descriptionOfwork!=null?descriptionOfwork:"-";
     }
 
     public void setDescriptionOfwork(String descriptionOfwork) {
@@ -120,7 +130,7 @@ public class ArtWork {
     }
 
     public String getSiteName() {
-        return siteName;
+        return siteName!=null?siteName:"-";
     }
 
     public void setSiteName(String siteName) {
@@ -128,7 +138,7 @@ public class ArtWork {
     }
 
     public String getSiteAddress() {
-        return siteAddress;
+        return siteAddress!=null?siteAddress:"-";
     }
 
     public void setSiteAddress(String siteAddress) {
@@ -216,7 +226,11 @@ public class ArtWork {
     }
 
     public String getArtists() {
-        return artists;
+        if(artists.contains(";")){
+            return artists.split(";")[0];
+        }else{
+            return artists;
+        }
     }
 
     public void setArtists(String artists) {

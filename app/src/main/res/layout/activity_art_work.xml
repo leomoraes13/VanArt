@@ -6,14 +6,137 @@
     android:layout_height="match_parent"
     tools:context=".ui.ArtWorkActivity">
 
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/default_margin"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
+
+    <ProgressBar
+        android:id="@+id/artwork_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <ImageView
+        android:id="@+id/artwork_image_full"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_broken_image"
+        android:layout_margin="@dimen/default_margin"
+        android:visibility="invisible"
+        android:onClick="toggleImage"
+        android:contentDescription="@string/content_artwork_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/artwork_image"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:src="@drawable/ic_broken_image"
+        android:paddingBottom="35dp"
+        android:onClick="toggleImage"
+        android:contentDescription="@string/content_artwork_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/artwork_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        app:layout_constraintRight_toRightOf="@id/artwork_image"
+        app:layout_constraintBottom_toBottomOf="@id/artwork_image"
+        android:src="@drawable/ic_favorite_empty"/>
+
+    <TextView
+        android:id="@+id/artwork_title"
+        style="@style/textDetailTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artwork_image"/>
+
+    <View
+        android:id="@+id/artwork_divider"
+        style="@style/cardSeparador"
+        app:layout_constraintTop_toBottomOf="@id/artwork_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/artwork_scrollview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/default_margin"
+        app:layout_constraintBottom_toTopOf="@id/artwork_btn_artist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artwork_divider">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/artwork_removed"
+                style="@style/textDetail"
+                android:visibility="gone"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold"
+                android:text="@string/artwork_removed" />
+
+            <TextView
+                android:id="@+id/artwork_year"
+                style="@style/textDetail"
+                tools:text="@string/app_name" />
+
+            <TextView
+                style="@style/textDetailHeader"
+                android:text="@string/artwork_location_header" />
+
+            <TextView
+                android:id="@+id/artwork_neighbourhood"
+                style="@style/textDetail"
+                tools:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/artwork_location"
+                style="@style/textDetail"
+                tools:text="@string/app_name" />
+
+            <TextView
+                style="@style/textDetailHeader"
+                android:text="@string/artwork_description_header" />
+
+            <TextView
+                android:id="@+id/artwork_description"
+                style="@style/textDetail"
+                tools:text="@string/app_name" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/artwork_btn_artist"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/artwork_see_artist"
+        android:textColor="@color/textIconsColor"
+        android:background="@drawable/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -3,4 +3,30 @@
     <string name="splash_loading">Loading some artworks at Vancouver</string>
 
     <string name="apiary_url">https://private-6a4a2-artvan1.apiary-mock.com</string>
+
+    <!-- Menu -->
+    <string name="menu_artworks">Artworks</string>
+    <string name="menu_artists">Artists</string>
+    <string name="menu_favorites">Favorites</string>
+
+    <!-- Dialog -->
+    <string name="dialog_ok">Ok</string>
+    <string name="dialog_erro_artist">Artist not found.</string>
+
+
+    <!-- Content Description -->
+    <string name="content_artwork_description">Artwork photo</string>
+    <string name="content_artist_description">Artist photo</string>
+
+    <!-- ArtWork Details -->
+    <string name="artwork_location">%1$s \n%2$s</string>
+    <string name="artwork_description_header">Description</string>
+    <string name="artwork_location_header">Location</string>
+    <string name="artwork_removed">(Removed)</string>
+    <string name="artwork_see_artist">See the artist</string>
+
+    <!-- Artist Detail -->
+    <string name="artist_see_work">See the work</string>
+    <string name="artist_country_header">Country</string>
+    <string name="artist_website_header">Website</string>
 </resources>

@@ -12,15 +12,17 @@ import ca.leomoraes.vanart.repository.ArtWorkRepository;
 
 public class ArtWorkViewModel extends AndroidViewModel {
 
-    // Constant for logging
-    private static final String TAG = ArtWorkViewModel.class.getSimpleName();
-
     // List of artWorks
     private LiveData<List<ArtWork>> artWorks;
 
     public ArtWorkViewModel(@NonNull Application application) {
         super(application);
         artWorks = ArtWorkRepository.getInstance().getAll(application.getBaseContext());
+
+        // artWorks = ArtWorkRepository.getInstance().getByNeighbourhood(application.getBaseContext(), "Downtown");
+
+/*        int[] ids = {518,519,520, 528, 539};
+        artWorks = ArtWorkRepository.getInstance().getFavorites(application.getBaseContext(), ids);*/
     }
 
     public LiveData<List<ArtWork>> getAll() {

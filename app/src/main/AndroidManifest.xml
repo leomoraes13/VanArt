@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.ArtWorkActivity"></activity>
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +20,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.HomeActivity" />
+        <activity
+            android:name=".ui.HomeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.ArtistDetailActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.ArtWorkActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.ArtistListActivity" />
+
 
         <service
             android:name=".service.LoadDataService"

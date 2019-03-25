@@ -41,6 +41,25 @@ public class Artist {
         return artistiId;
     }
 
+    public String getArtistiIdFmt() {
+        return String.valueOf(artistiId);
+    }
+
+    public String getFullName() {
+        StringBuilder sb = new StringBuilder();
+        if(lastName!=null) {
+            sb.append(lastName);
+        }
+        if(lastName!=null && firstName!=null){
+            sb.append(", ");
+        }
+        if(firstName!=null) {
+            sb.append(firstName);
+        }
+
+        return sb.toString();
+    }
+
     public void setArtistiId(Integer artistiId) {
         this.artistiId = artistiId;
     }
@@ -62,7 +81,7 @@ public class Artist {
     }
 
     public String getCountry() {
-        return country;
+        return country==null?"-":country;
     }
 
     public void setCountry(String country) {

@@ -26,4 +26,19 @@ public class ArtWorkRepository {
         return AppDatabase.getAppDatabase(context).artWorkDao().getAll();
     }
 
+    public LiveData<ArtWork> getById(Context context, Integer id) {
+        return AppDatabase.getAppDatabase(context).artWorkDao().findById(id);
+    }
+
+    public LiveData<List<ArtWork>> getByArtist(Context context, Integer id) {
+        return AppDatabase.getAppDatabase(context).artWorkDao().getByArtist(id);
+    }
+
+    public LiveData<List<ArtWork>> getFavorites(Context context, int[] ids) {
+        return AppDatabase.getAppDatabase(context).artWorkDao().findByIds(ids);
+    }
+
+    public LiveData<List<ArtWork>> getByNeighbourhood(Context context, String neighbourhood) {
+        return AppDatabase.getAppDatabase(context).artWorkDao().findByNeighbourhood(neighbourhood);
+    }
 }
