@@ -31,10 +31,11 @@
             android:launchMode="singleTask" />
         <activity android:name=".ui.ArtistListActivity" />
 
-
         <service
             android:name=".service.LoadDataService"
             android:exported="false" />
+
+        <activity android:name=".ui.FavoriteActivity"></activity>
     </application>
 
 </manifest>

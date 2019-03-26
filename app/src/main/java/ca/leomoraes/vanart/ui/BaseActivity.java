@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,9 +64,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.menu_favorites:
-                Toast.makeText(this, "favorites", Toast.LENGTH_SHORT).show();
-/*                intent = new Intent(this, FavoriteListActivity.class);
-                startActivity(intent);*/
+                intent = new Intent(this, FavoriteActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
