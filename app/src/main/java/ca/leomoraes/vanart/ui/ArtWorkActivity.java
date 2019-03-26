@@ -4,13 +4,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -68,7 +68,10 @@ public class ArtWorkActivity extends BaseActivity {
 
     @OnClick(R.id.artwork_fab)
     void fabClick(){
-        Toast.makeText(this, "FAB Test!", Toast.LENGTH_SHORT).show();
+        if(viewModel.getFavorite().getValue()==null)
+            viewModel.insertFavorite( artworkId );
+        else
+            viewModel.deleteFavorite( artworkId );
     }
 
     private ArtWorkDetailViewModel viewModel;
@@ -161,6 +164,14 @@ public class ArtWorkActivity extends BaseActivity {
             }
 
             progressBar.setVisibility(View.GONE);
+        });
+
+        viewModel.getFavorite().observe(this, favorite -> {
+            if(favorite!=null){
+                fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_full));
+            }else{
+                fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_empty));
+            }
         });
     }
 

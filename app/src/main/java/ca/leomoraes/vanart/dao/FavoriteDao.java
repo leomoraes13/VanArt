@@ -2,6 +2,7 @@ package ca.leomoraes.vanart.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -21,6 +22,6 @@ public interface FavoriteDao {
     @Insert
     void insert(Favorite favorite);
 
-    @Query("DELETE FROM favorite WHERE registryID = :id ")
-    void delete(Integer id);
+    @Delete
+    void delete(Favorite favorite);
 }

@@ -9,7 +9,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import ca.leomoraes.vanart.model.ArtWork;
+import ca.leomoraes.vanart.model.Favorite;
 import ca.leomoraes.vanart.repository.ArtWorkRepository;
+import ca.leomoraes.vanart.repository.FavoriteRepository;
 
 public class ArtWorkDetailViewModel extends AndroidViewModel {
     private Context mContext;
@@ -19,6 +21,9 @@ public class ArtWorkDetailViewModel extends AndroidViewModel {
     // List of artWorks
     private final LiveData<ArtWork> artWorks =
             Transformations.switchMap(idParam, (type) -> ArtWorkRepository.getInstance().getById(mContext, type));
+
+    private final LiveData<Favorite> favorite =
+            Transformations.switchMap(idParam, (type) -> FavoriteRepository.getInstance().getById(mContext, type));
 
     public ArtWorkDetailViewModel(@NonNull Application application, Integer id) {
         super(application);
@@ -32,5 +37,16 @@ public class ArtWorkDetailViewModel extends AndroidViewModel {
 
     public LiveData<ArtWork> getArtWork() {
         return artWorks;
+    }
+
+    public LiveData<Favorite> getFavorite() {
+        return favorite;
+    }
+
+    public void insertFavorite(int id){
+        FavoriteRepository.getInstance().insert(mContext, new Favorite(id));
+    }
+    public void deleteFavorite(int id){
+        FavoriteRepository.getInstance().delete(mContext, new Favorite(id));
     }
 }
