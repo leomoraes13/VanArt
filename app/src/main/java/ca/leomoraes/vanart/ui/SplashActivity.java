@@ -40,16 +40,14 @@ public class SplashActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-/*
         startActivity( new Intent(SplashActivity.this, HomeActivity.class) );
         SplashActivity.this.finish();
-*/
 
-        setReceiver();
+/*        setReceiver();
 
         // Start the service
         Intent intent = new Intent(SplashActivity.this, LoadDataService.class);
-        startService(intent);
+        startService(intent);*/
 
         super.onStart();
     }

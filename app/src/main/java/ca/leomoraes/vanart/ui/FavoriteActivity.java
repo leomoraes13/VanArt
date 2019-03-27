@@ -15,6 +15,7 @@ import butterknife.BindView;
 import ca.leomoraes.vanart.BR;
 import ca.leomoraes.vanart.R;
 import ca.leomoraes.vanart.model.ArtWork;
+import ca.leomoraes.vanart.model.Favorite;
 import ca.leomoraes.vanart.viewModel.FavoriteViewModel;
 
 public class FavoriteActivity extends BaseActivity {
@@ -52,13 +53,24 @@ public class FavoriteActivity extends BaseActivity {
     private void setupViewModel() {
         progressBar.setVisibility(View.VISIBLE);
         viewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
-        viewModel.getFavorites().observe(this, artworks -> {
+        viewModel.getArtworks().observe(this, artworks -> {
 
             new LastAdapter(artworks, BR.item)
                     .map(ArtWork.class, R.layout.item_artwork)
                     .into(mRecycler);
 
             progressBar.setVisibility(View.GONE);
+        });
+
+        viewModel.getFavorites().observe(this, favorites -> {
+
+            int[] ints = new int[favorites.size()];
+            int i=0;
+            for (Favorite favorite:favorites) {
+                ints[i] = favorite.getRegistryID();
+                i++;
+            }
+            viewModel.setFavorites(ints);
         });
     }
 

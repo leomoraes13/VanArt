@@ -3,6 +3,7 @@ package ca.leomoraes.vanart.viewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -20,17 +21,11 @@ public class FavoriteViewModel extends AndroidViewModel {
     // List of favorites
     private LiveData<List<Favorite>> favorites;
 
+    private MutableLiveData<int[]> favoritesIds = new MutableLiveData<>();
+
     // List of artWorks
     private final LiveData<List<ArtWork>> artWorks =
-            Transformations.switchMap(favorites, favorites -> {
-                int[] ints = new int[favorites.size()];
-                int i=0;
-                for (Favorite favorite:favorites) {
-                    ints[i] = favorite.getRegistryID();
-                    i++;
-                }
-                return ArtWorkRepository.getInstance().getFavorites(mContext, ints);
-            });
+            Transformations.switchMap(favoritesIds, ints -> ArtWorkRepository.getInstance().getFavorites(mContext, ints));
 
     public FavoriteViewModel(@NonNull Application application) {
         super(application);
@@ -38,7 +33,15 @@ public class FavoriteViewModel extends AndroidViewModel {
         favorites = FavoriteRepository.getInstance().getAll(mContext);
     }
 
-    public LiveData<List<ArtWork>> getFavorites() {
+    public LiveData<List<ArtWork>> getArtworks() {
         return artWorks;
+    }
+
+    public LiveData<List<Favorite>> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(int[] ints) {
+        favoritesIds.setValue(ints);
     }
 }
