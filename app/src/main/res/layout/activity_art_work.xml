@@ -20,6 +20,16 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <ImageView
+        android:id="@+id/artwork_full"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_fullscreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/artwork_image"
+        android:elevation="1dp"/>
+
+    <ImageView
         android:id="@+id/artwork_image_full"
         android:layout_width="0dp"
         android:layout_height="0dp"

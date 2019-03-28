@@ -57,6 +57,9 @@ public class ArtWorkActivity extends BaseActivity {
     @BindView(R.id.artwork_image_full)
     ImageView artImageFull;
 
+    @BindView(R.id.artwork_full)
+    ImageView artFull;
+
     @BindView(R.id.artwork_btn_artist)
     Button btnArtist;
 
@@ -84,6 +87,7 @@ public class ArtWorkActivity extends BaseActivity {
             tvTitle.setVisibility(View.VISIBLE);
             divider.setVisibility(View.VISIBLE);
             btnArtist.setVisibility(View.VISIBLE);
+            artFull.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen));
             fab.show();
         }else{
             artImageFull.setVisibility(View.VISIBLE);
@@ -92,6 +96,7 @@ public class ArtWorkActivity extends BaseActivity {
             tvTitle.setVisibility(View.INVISIBLE);
             divider.setVisibility(View.INVISIBLE);
             btnArtist.setVisibility(View.INVISIBLE);
+            artFull.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_exit));
             fab.hide();
         }
     }
@@ -132,9 +137,9 @@ public class ArtWorkActivity extends BaseActivity {
 
     private void setupViewModel() {
         progressBar.setVisibility(View.VISIBLE);
+        artFull.setVisibility(View.INVISIBLE);
         viewModel = ViewModelProviders.of(this, new ViewModelFactory(this.getApplication(), artworkId)).get(ArtWorkDetailViewModel.class);
         viewModel.getArtWork().observe(this, artwork -> {
-
             artistId = 0;
             if(artwork!=null) {
                 if (artwork.getPhotoURL() != null && !artwork.getPhotoURL().isEmpty()) {
@@ -149,6 +154,7 @@ public class ArtWorkActivity extends BaseActivity {
                         .load(artwork.getPhotoURL())
                         .apply(new RequestOptions().dontTransform() )
                         .into(artImageFull);
+                    artFull.setVisibility(View.VISIBLE);
                 }
 
                 tvTitle.setText(artwork.getTitleOfWork());
