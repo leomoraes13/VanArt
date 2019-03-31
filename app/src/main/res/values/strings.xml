@@ -17,6 +17,7 @@
     <!-- Content Description -->
     <string name="content_artwork_description">Artwork photo</string>
     <string name="content_artist_description">Artist photo</string>
+    <string name="content_widget_description">Widget logo</string>
 
     <!-- ArtWork Details -->
     <string name="artwork_location">%1$s \n%2$s</string>
@@ -29,4 +30,7 @@
     <string name="artist_see_work">See the work</string>
     <string name="artist_country_header">Country</string>
     <string name="artist_website_header">Website</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="main_title_all">All neighbourhoods</string>
 </resources>

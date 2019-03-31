@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "562867527688",
+    "firebase_url": "https://vanart-1553711281013.firebaseio.com",
+    "project_id": "vanart-1553711281013",
+    "storage_bucket": "vanart-1553711281013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562867527688:android:a719d3587ca084fc",
+        "android_client_info": {
+          "package_name": "ca.leomoraes.vanart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562867527688-6fufse84rc60o5mvls49r8tr9qo5l0vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABWrnqIn4xjlHD0tw8i0wDn3SPWKaMtSI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/default_margin"
+        android:padding="4dp"
         android:onClick="openArtWork">
 
         <TextView
@@ -28,7 +28,7 @@
             android:id="@+id/tv_artwork_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:text="@{item.titleOfWork}"
             android:paddingStart="@dimen/default_margin"
@@ -43,12 +43,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{item.neighbourhood}"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:paddingStart="@dimen/default_margin"
             android:paddingEnd="@dimen/default_margin"
-            android:paddingBottom="@dimen/default_margin"
             app:layout_constraintTop_toBottomOf="@id/tv_artwork_title"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Piece of ArtWork." />

@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.github.nitrico.lastadapter.LastAdapter;
 
 import butterknife.BindView;
+import ca.leomoraes.vanart.BR;
 import ca.leomoraes.vanart.R;
 import ca.leomoraes.vanart.model.ArtWork;
 import ca.leomoraes.vanart.util.ViewModelFactory;
@@ -111,9 +112,9 @@ public class ArtistDetailActivity extends BaseActivity {
             progressBar.setVisibility(View.GONE);
         });
 
-/*        viewModel.getArtWorkList().observe(this, artWorks -> new LastAdapter(artWorks, BR.item)
+        viewModel.getArtWorkList().observe(this, artWorks -> new LastAdapter(artWorks, BR.item)
                 .map(ArtWork.class, R.layout.item_artwork)
-                .into(mRecycler));*/
+                .into(mRecycler));
     }
 
     public void openArtWork(View view) {

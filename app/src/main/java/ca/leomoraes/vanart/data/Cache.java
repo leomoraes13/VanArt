@@ -1,8 +1,11 @@
 package ca.leomoraes.vanart.data;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.leomoraes.vanart.model.ArtWork;
 import ca.leomoraes.vanart.model.Neighbourhood;
 
 public class Cache {
@@ -16,13 +19,17 @@ public class Cache {
         return neighbourhoods;
     }
 
-    public static void add(String name) {
-        Neighbourhood neighbourhood = new Neighbourhood(name);
+    public static void add(ArtWork artWork) {
+        Neighbourhood neighbourhood = new Neighbourhood(artWork.getNeighbourhood());
 
         if(neighbourhoods.contains(neighbourhood) ){
             int indexOf = neighbourhoods.indexOf(neighbourhood);
             neighbourhoods.get(indexOf).addTotal();
-        }else
+        }else {
+            if(artWork.getLatitude()!=null && artWork.getLongitude()!=null) {
+                neighbourhood.setLocation( new LatLng(artWork.getLatitude(), artWork.getLongitude()) );
+            }
             neighbourhoods.add(neighbourhood);
+        }
     }
 }

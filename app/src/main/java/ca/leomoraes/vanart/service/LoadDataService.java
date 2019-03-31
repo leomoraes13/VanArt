@@ -56,7 +56,7 @@ public class LoadDataService extends IntentService {
                                                         AppDatabase.getAppDatabase(LoadDataService.this).artWorkDao().deleteAll();
                                                         for (ArtWorkResponse artWorkResponse:response.body()) {
                                                             AppDatabase.getAppDatabase(LoadDataService.this).artWorkDao().insertAll( artWorkResponse.getArtWork() );
-                                                            Cache.add( artWorkResponse.getArtWork().getNeighbourhood() );
+                                                            Cache.add( artWorkResponse.getArtWork() );
                                                         }
 
                                                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent.putExtra("broadcastMessage", true));

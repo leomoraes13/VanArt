@@ -10,6 +10,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.nitrico.lastadapter.LastAdapter;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import butterknife.BindView;
 import ca.leomoraes.vanart.BR;
@@ -18,7 +27,7 @@ import ca.leomoraes.vanart.model.ArtWork;
 import ca.leomoraes.vanart.model.Favorite;
 import ca.leomoraes.vanart.viewModel.FavoriteViewModel;
 
-public class FavoriteActivity extends BaseActivity {
+public class FavoriteActivity extends BaseActivity implements OnMapReadyCallback {
 
     @BindView(R.id.favorite_recycler)
     RecyclerView mRecycler;
@@ -27,12 +36,15 @@ public class FavoriteActivity extends BaseActivity {
     ProgressBar progressBar;
 
     private FavoriteViewModel viewModel;
+    private boolean mapReady = false;
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupRecycler();
         setupViewModel();
+        setupMap();
     }
 
     @Override
@@ -43,6 +55,20 @@ public class FavoriteActivity extends BaseActivity {
     @Override
     int getTituloActivity() {
         return R.string.app_name;
+    }
+
+
+    private void setupMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.favorite_map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mapReady = true;
+        this.googleMap = googleMap;
+        updateMap(null);
     }
 
     private void setupRecycler() {
@@ -59,6 +85,7 @@ public class FavoriteActivity extends BaseActivity {
                     .map(ArtWork.class, R.layout.item_artwork)
                     .into(mRecycler);
 
+            updateMap(artworks);
             progressBar.setVisibility(View.GONE);
         });
 
@@ -72,6 +99,31 @@ public class FavoriteActivity extends BaseActivity {
             }
             viewModel.setFavorites(ints);
         });
+    }
+
+    private void updateMap(List<ArtWork> artworks){
+        if(mapReady && artworks!=null && !artworks.isEmpty()) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            // Marker m;
+            LatLng location;
+            for (ArtWork artWork : artworks) {
+                if (artWork.getLongitude()!=null && artWork.getLatitude()!=null) {
+                    location = new LatLng( artWork.getLatitude(), artWork.getLongitude());
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(location)
+                            .title(artWork.getTitleOfWork()));
+                    // m.setTag();
+                    builder.include(location);
+                }
+            }
+
+            LatLngBounds bounds = builder.build();
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.20);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
+        }
     }
 
     public void openArtWork(View view) {

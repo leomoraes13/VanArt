@@ -1,8 +1,11 @@
 package ca.leomoraes.vanart.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Neighbourhood {
     private String name;
     private int total;
+    private LatLng location;
 
     public Neighbourhood(String name, int total) {
         this.name = name;
@@ -32,6 +35,14 @@ public class Neighbourhood {
 
     public void addTotal() {
         this.total += 1;
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 
     @Override

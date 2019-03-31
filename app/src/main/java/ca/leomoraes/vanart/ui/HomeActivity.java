@@ -6,18 +6,31 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.nitrico.lastadapter.LastAdapter;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import ca.leomoraes.vanart.BR;
 import ca.leomoraes.vanart.R;
+import ca.leomoraes.vanart.data.Cache;
 import ca.leomoraes.vanart.model.ArtWork;
+import ca.leomoraes.vanart.model.Neighbourhood;
 import ca.leomoraes.vanart.viewModel.ArtWorkViewModel;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     @BindView(R.id.home_recycler)
     RecyclerView mRecycler;
@@ -25,13 +38,66 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.home_progress)
     ProgressBar progressBar;
 
+    @BindView(R.id.home_title)
+    TextView title;
+
+    @BindView(R.id.home_close)
+    ImageView closeButton;
+
     private ArtWorkViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupMap();
         setupRecycler();
         setupViewModel();
+    }
+
+    private void setupMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setOnMarkerClickListener(this);
+        List<Neighbourhood> neighbourhoods = Cache.getNeighbourhoods();
+        if(neighbourhoods!=null && !neighbourhoods.isEmpty()) {
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            Marker m;
+            for (Neighbourhood neighbourhood:neighbourhoods) {
+                if(neighbourhood.getTotal()!=0 && neighbourhood.getLocation()!=null) {
+                    m = googleMap.addMarker(new MarkerOptions()
+                            .position(neighbourhood.getLocation())
+                            .title(neighbourhood.getName() + " (" + neighbourhood.getTotal() + ")"));
+                    m.setTag(neighbourhood.getName());
+                    builder.include( neighbourhood.getLocation() );
+                    // googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(neighbourhood.getLocation(), 15));
+                }
+            }
+
+            LatLngBounds bounds = builder.build();
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.20);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
+        }
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        String name = (String) marker.getTag();
+        if (name != null) {
+            progressBar.setVisibility(View.VISIBLE);
+            viewModel.setNeighbourhood(name);
+            title.setText(name);
+            closeButton.setVisibility(View.VISIBLE);
+        }
+        return false;
     }
 
     @Override
@@ -53,13 +119,14 @@ public class HomeActivity extends BaseActivity {
         progressBar.setVisibility(View.VISIBLE);
         viewModel = ViewModelProviders.of(this).get(ArtWorkViewModel.class);
         viewModel.getAll().observe(this, artworks -> {
-
             new LastAdapter(artworks, BR.item)
                     .map(ArtWork.class, R.layout.item_artwork)
                     .into(mRecycler);
 
+            // AppWidget.mFavoritesArtworks = artworks.subList(10, 20);
             progressBar.setVisibility(View.GONE);
         });
+        this.close();
     }
 
     public void openArtWork(View view) {
@@ -68,5 +135,12 @@ public class HomeActivity extends BaseActivity {
         Intent intent = new Intent(this, ArtWorkActivity.class);
         intent.putExtra(ArtWorkActivity.EXTRA_ID, Integer.parseInt(text.getText().toString()));
         startActivity( intent );
+    }
+
+    @OnClick(R.id.home_close)
+    public void close(){
+        title.setText(R.string.main_title_all);
+        closeButton.setVisibility(View.INVISIBLE);
+        viewModel.setNeighbourhood(null);
     }
 }
