@@ -29,11 +29,6 @@ public class ArtWorkViewModel extends AndroidViewModel {
     public ArtWorkViewModel(@NonNull Application application) {
         super(application);
         mContext = application.getBaseContext();
-
-        // artWorks = ArtWorkRepository.getInstance().getByNeighbourhood(application.getBaseContext(), "Downtown");
-
-/*        int[] ids = {518,519,520, 528, 539};
-        artWorks = ArtWorkRepository.getInstance().getArtworks(application.getBaseContext(), ids);*/
     }
 
     public LiveData<List<ArtWork>> getAll() {

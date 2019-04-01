@@ -27,8 +27,11 @@ import ca.leomoraes.vanart.BR;
 import ca.leomoraes.vanart.R;
 import ca.leomoraes.vanart.data.Cache;
 import ca.leomoraes.vanart.model.ArtWork;
+import ca.leomoraes.vanart.model.Favorite;
 import ca.leomoraes.vanart.model.Neighbourhood;
 import ca.leomoraes.vanart.viewModel.ArtWorkViewModel;
+import ca.leomoraes.vanart.viewModel.FavoriteViewModel;
+import ca.leomoraes.vanart.widget.AppWidget;
 
 public class HomeActivity extends BaseActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
@@ -45,6 +48,7 @@ public class HomeActivity extends BaseActivity implements GoogleMap.OnMarkerClic
     ImageView closeButton;
 
     private ArtWorkViewModel viewModel;
+    private FavoriteViewModel favoriteViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +130,23 @@ public class HomeActivity extends BaseActivity implements GoogleMap.OnMarkerClic
             // AppWidget.mFavoritesArtworks = artworks.subList(10, 20);
             progressBar.setVisibility(View.GONE);
         });
-        this.close();
+
+        // Setting the favorites widget
+        favoriteViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
+        favoriteViewModel.getArtworks().observe(this, artworks -> AppWidget.mFavoritesArtworks = artworks);
+        favoriteViewModel.getFavorites().observe(this, favorites -> {
+            if(favorites!=null) {
+                int[] ints = new int[favorites.size()];
+                int i = 0;
+                for (Favorite favorite : favorites) {
+                    ints[i] = favorite.getRegistryID();
+                    i++;
+                }
+                favoriteViewModel.setFavorites(ints);
+            }
+        });
+
+        this.closeNeighbourhood();
     }
 
     public void openArtWork(View view) {
@@ -138,7 +158,7 @@ public class HomeActivity extends BaseActivity implements GoogleMap.OnMarkerClic
     }
 
     @OnClick(R.id.home_close)
-    public void close(){
+    public void closeNeighbourhood(){
         title.setText(R.string.main_title_all);
         closeButton.setVisibility(View.INVISIBLE);
         viewModel.setNeighbourhood(null);

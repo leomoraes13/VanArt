@@ -37,8 +37,6 @@ public class LoadDataService extends IntentService {
                         @Override
                         public void onResponse(Call<List<ArtistResponse>> call, Response<List<ArtistResponse>> response) {
                             if (response.isSuccessful()) {
-                                Log.d(TAG, "" + response.body().get(0).getArtist().getFirstName());
-
                                 AppDatabase.getAppDatabase(LoadDataService.this).artistDao().deleteAll();
                                 for (ArtistResponse artistResponse:response.body()) {
                                     AppDatabase.getAppDatabase(LoadDataService.this).artistDao().insertAll( artistResponse.getArtist() );
@@ -51,14 +49,11 @@ public class LoadDataService extends IntentService {
                                                 @Override
                                                 public void onResponse(Call<List<ArtWorkResponse>> call, Response<List<ArtWorkResponse>> response) {
                                                     if (response.isSuccessful()) {
-                                                        Log.d(TAG, "" + response.body().get(0).getArtWork().getTitleOfWork());
-
                                                         AppDatabase.getAppDatabase(LoadDataService.this).artWorkDao().deleteAll();
                                                         for (ArtWorkResponse artWorkResponse:response.body()) {
                                                             AppDatabase.getAppDatabase(LoadDataService.this).artWorkDao().insertAll( artWorkResponse.getArtWork() );
                                                             Cache.add( artWorkResponse.getArtWork() );
                                                         }
-
                                                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent.putExtra("broadcastMessage", true));
                                                     }
                                                 }
